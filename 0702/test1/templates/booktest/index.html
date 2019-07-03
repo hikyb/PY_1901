@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+</head>
+<body>
+    <h2>这里是首页</h2>
+    {% if username %}
+        <p>当前用户为：<span class="active">{{username}}</span></p>
+    {% else %}
+        <p>没有登录！</p>
+    {% endif %}
+    <p><a href="/list/">进入到列表页</a></p>
+    <p><img src="../../static/images/01.jpg" alt=""></p>
+</body>
+</html>

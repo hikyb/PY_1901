@@ -14,7 +14,7 @@ class HeroInfoAdmin(admin.ModelAdmin):
     list_display = ('name', 'content', 'book')
     list_filter = ('book',)
     search_fields = ('name', 'content')
-    list_per_page = 2
+    list_per_page = 4
 
 
 admin.site.register(BookInfo, BookInfoAdmin)
