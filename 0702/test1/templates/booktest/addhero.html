@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加英雄</title>
+    <link rel="stylesheet" href="/static/js/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <script src="/static/js/jQuery/jquery-2.1.4.min.js"></script>
+    <script src="/static/js/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+    <h2 class="text-center">当前书籍为：{{book}}</h2>
+    <p><a href="{% url 'booktest:detail' book.id %}">返回详情页</a></p><br>
+    <form class="form-horizontal" action="{% url 'booktest:addhero' book.id %}" method="post">
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">英雄名称</label>
+            <div class="col-sm-4">
+                <input type="text" name="heroname" class="form-control" id="inputEmail3" placeholder="输入英雄名称">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="gender" class="col-sm-2 control-label">英雄性别</label>
+            <div class="col-sm-4">
+                <select name="gender" id="gender" class="form-control">
+                    <option value="man">男</option>
+                    <option value="woman">女</option>
+                </select>
+            </div>
+        </div>
+        <!--<div class="form-group">-->
+            <!--<label for="gender" class="col-sm-2 control-label">英雄性别</label>-->
+            <!--<div class="col-sm-6">-->
+                <!--<label for="man">男&nbsp;</label><input type="radio" id="man" checked name="gender1" value="man">&nbsp;-->
+                <!--<label for="woman">女&nbsp;</label><input type="radio" id="woman" name="gender1" value="woman">-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">英雄绝招</label>
+            <div class="col-sm-4">
+                <input type="text" name="content" class="form-control" id="inputPassword3" placeholder="输入英雄绝招">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">添加</button>
+            </div>
+        </div>
+    </form>
+
+</body>
+</html>

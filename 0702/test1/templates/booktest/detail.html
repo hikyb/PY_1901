@@ -6,13 +6,16 @@
 </head>
 <body>
     <h2>这里是详情页</h2>
-    <p><a href="/index/">返回首页</a></p>
+    {# <p><a href="/index/">返回首页</a></p> #}
+
+    <p><a href="{% url 'booktest:index' %}">返回首页</a></p>
     <h3>当前书籍为：{{book}}---------{{book.pub_date}}</h3>
+    <p><a href="{% url 'booktest:addhero' book.id %}">添加英雄</a></p>
     <ul>
     {% if book.heroinfo_set.count %}
         <li>英雄角色为：</li>
-        {% for book in book.heroinfo_set.all %}
-        <li>{{book.name}}---------{{book.content}}</li>
+        {% for hero in book.heroinfo_set.all %}
+        <li>{{hero.name}}---------{{hero.content}}---------<a href="{% url 'booktest:deletehero' hero.id %}">删除角色</a></li>
         {% endfor %}
     {% else %}
         <li>没有英雄角色</li>

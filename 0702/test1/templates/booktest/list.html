@@ -8,7 +8,9 @@
     <h2>列表页</h2>
     <ul>
         {% for book in books %}
-        <li><a href="/detail/{{book.id}}">{{book.title}}</a>---------{{book.pub_date}}</li>
+        {# <li><a href="/detail/{{book.id}}">{{book.title}}</a>---------{{book.pub_date}}</li> #}
+        <li><a href="{% url 'booktest:detail' book.id %}">{{book.title}}</a>---------{{book.pub_date}}---------<a
+                href="{% url 'booktest:deletebook' book.id %}">删除书籍</a></li>
         <br>
         {% endfor %}
     </ul>

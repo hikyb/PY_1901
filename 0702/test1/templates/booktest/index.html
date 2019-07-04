@@ -12,7 +12,10 @@
     {% else %}
         <p>没有登录！</p>
     {% endif %}
-    <p><a href="/list/">进入到列表页</a></p>
-    <p><img src="../../static/images/01.jpg" alt=""></p>
+    {# <p><a href="/list/">进入到列表页</a></p> #}
+
+    {# 去除硬编码 #}
+    <p><a href="{% url 'booktest:list' %}">进入到列表页</a></p>
+    <p><img src="/static/images/01.jpg" alt=""></p>
 </body>
 </html>

@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse
 
 # Create your views here.
 
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from .models import BookInfo, HeroInfo
+
 
 
 def index(request):
@@ -55,3 +56,38 @@ def detail(request, id):
 
     book = BookInfo.objects.get(pk=id)
     return render(request, 'booktest/detail.html', {'book': book})
+
+
+def deletebook(request, id):
+    """删除书籍"""
+    # return HttpResponse('删除成功')
+    book = BookInfo.objects.get(pk=id)
+    book.delete()
+    return redirect(reverse('booktest:list'))
+
+
+def addhero(request, id):
+    # return HttpResponse("添加成功")
+    book = BookInfo.objects.get(pk=id)
+    if request.method == 'GET':
+        return render(request, 'booktest/addhero.html', {'book': book})
+    elif request.method == 'POST':
+        name = request.POST.get('heroname')
+        gender = request.POST.get('gender')
+        content = request.POST.get('content')
+        hero = HeroInfo(name=name, gender=gender, content=content, book=book)
+        hero.save()
+        return redirect(reverse('booktest:detail', args=(id,)))
+
+
+def deletehero(request, id):
+    """删除英雄"""
+    hero = HeroInfo.objects.get(pk=id)
+    bookid = hero.book.id
+    hero.delete()
+    # return HttpResponse("删除成功")
+    # return HttpResponseRedirect('/detail/'+str(bookid)+'/')
+    # result = reverse('booktest:detail', args=(bookid,))
+    # return redirect('/detail'+str(bookid)+'/')
+
+    return redirect(reverse('booktest:detail', args=(bookid,)))
