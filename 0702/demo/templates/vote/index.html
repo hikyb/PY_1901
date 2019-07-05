@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+</head>
+<body>
+    <div class="container">
+        <h2>首页</h2>
+        <ul>
+        {% for question in questions %}
+            <li><a href="{% url 'vote:choice' question.id %}">{{question.content}}</a></li>
+        {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+ul{
+    list-style: none;
+}
+a {
+    color: blueviolet;
+}
+a:hover{
+    color: palevioletred;
+}
+.container{
+    margin: auto;
+}
+.container>ul>li{
+    height: 30px;
+}

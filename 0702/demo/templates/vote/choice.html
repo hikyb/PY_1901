@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>投票</title>
+</head>
+<body>
+    <h2>投票信息：{{question}}</h2>
+    <p><a href="{% url 'vote:index' %}">返回首页</a></p><br>
+    <form action="">
+        <label for="choice">投票选项</label><br><br>
+        {% for choice in question.choice_set.all %}
+        <input type="radio" id="choice" name="choice" value="">{{choice}}<br><br>
+        {% endfor %}
+        <input type="submit" value="提交">
+    </form>
+</body>
+</html>
