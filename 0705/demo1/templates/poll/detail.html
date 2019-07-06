@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>问题详情页</title>
+    <style>
+        ul{
+            list-style: none;
+        }
+        ul li{
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h3>当前问题为：{{question}}</h3>
+    <form action="{% url 'poll:detail' question.id %}" method="post">
+        <ul>
+        {% for q in question.choice_set.all %}
+            {% if forloop.counter == 1 %}
+            <li><input type="radio" name="choice" value="{{q.id}}" checked>{{q}}</li>
+            {% else %}
+            <li><input type="radio" name="choice" value="{{q.id}}">{{q}}</li>
+            {% endif %}
+
+        {% empty %}
+            <li>该问题选项为空</li>
+        {% endfor %}
+        {% if question.choice_set.all %}
+            <br><input type="submit" value="提交">
+        {% endif %}
+        </ul>
+    </form>
+</body>
+</html>

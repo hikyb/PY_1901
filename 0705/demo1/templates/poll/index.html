@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <style>
+        ul{
+            list-style: none;
+        }
+        .que{
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h2>这里是页面首页</h2>
+    <ul>
+    {% if questions %}
+        {% for question in questions %}
+            <li class="que"><a href="{% url 'poll:detail' question.id %}">{{forloop.counter}}. {{question}}</a></li>
+        {% endfor %}
+    {% else %}
+        <li>当前没有问题</li>
+    {% endif %}
+    </ul>
+</body>
+</html>

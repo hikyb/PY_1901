@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>结果显示页</title>
+</head>
+<body>
+    <h3>当前问题为：{{question}}</h3>
+    <p><a href="{% url 'poll:index' %}">返回首页</a></p>
+    {% for choice in question.choice_set.all %}
+    <p>{{forloop.counter}}. {{choice}}---------票数：{{choice.vote}}</p>
+    {% endfor %}
+</body>
+</html>
