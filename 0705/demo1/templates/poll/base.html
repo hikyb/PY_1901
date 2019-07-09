@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>首页</title>
+    {% block title %}
+    <title>Title</title>
+    {% endblock %}
     <link rel="stylesheet" href="/static/js/bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <script src="/static/js/jQuery/jquery-2.1.4.min.js"></script>
     <script src="/static/js/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
@@ -25,14 +27,19 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="{% url 'poll:index' %}">首页 <span class="sr-only">(current)</span></a></li>
-                    <li><a href="{% url 'poll:detail' question.id %}">列表页</a></li>
-                    <li class="active"><a href="">结果页</a></li>
+                    <li class="active"><a href="#">首页 <span class="sr-only">(current)</span></a></li>
                 </ul>
+                {% if username %}
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#">{{username}}</a></li>
                     <li><a href="{% url 'poll:logout' %}">退出</a></li>
                 </ul>
+                {% else %}
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{% url 'poll:login' %}">登录</a></li>
+                    <li><a href="{% url 'poll:regist' %}">注册</a></li>
+                </ul>
+                {% endif %}
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
@@ -80,19 +87,12 @@
                     </a>
                 </div>
             </div>
+            {% block col %}
             <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><h3 class="text-center">当前问题为：{{question}}</h3></div>
-                    <div class="panel-body">
-                        {% for choice in question.choice_set.all %}
-                        <p>{{forloop.counter}}. {{choice}}---------票数：{{choice.vote}}</p>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
+
+            </div>>
+            {% endblock %}
         </div>
     </div>
-</body>
-</html>
 </body>
 </html>

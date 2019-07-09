@@ -1,4 +1,6 @@
 from django.db import models
+from django import forms
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -42,4 +44,28 @@ class Choice(models.Model):
         # ordering = ['-vote']
 
 
+class PollUser(User):
+    """用户类"""
+    user = models.CharField(max_length=20)
+
+
+# class LoginForm(forms.Form):
+#     """登录表单类"""
+#     username = forms.CharField(label='用户名', max_length=20, required=True, widget=forms.TextInput(
+#         attrs={'id': 'username', 'class': 'form-control', 'placehold': '输入用户名'}
+#     )),
+#     password = forms.CharField(max_length=20, required=True, widget=forms.PasswordInput(
+#         attrs={'class': 'form-control', 'id': 'password', 'placehold': '输入密码'}
+#     ))
+
+
+# class RegistForm(forms.ModelForm):
+#     """注册表单类"""
+#     repeatpassword = forms.CharField(label='重复密码', required=True, widget=forms.PasswordInput(
+#         attrs={'class': 'form-control', 'id': 'registpassword2', 'placehold': '输入确认密码'}
+#     ))
+#     class Meta:
+#         models = PollsUser
+#         fields = ['username', 'password', 'telephone']
+#         widgets = {'username': forms.TextInput(attrs={'id': 'registusername', 'placehold': ''})}
 

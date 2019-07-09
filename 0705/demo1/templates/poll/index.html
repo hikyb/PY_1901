@@ -1,27 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>首页</title>
-    <style>
-        ul{
-            list-style: none;
-        }
-        .que{
-            height: 30px;
-        }
-    </style>
-</head>
+{% extends 'poll/base.html' %}
+
+{% block title %}
+<title>首页</title>
+{% endblock %}
+
 <body>
-    <h2>这里是页面首页</h2>
-    <ul>
-    {% if questions %}
-        {% for question in questions %}
-            <li class="que"><a href="{% url 'poll:detail' question.id %}">{{forloop.counter}}. {{question}}</a></li>
-        {% endfor %}
-    {% else %}
-        <li>当前没有问题</li>
-    {% endif %}
-    </ul>
+    <div class="container">
+        <div class="row">
+            {% block col %}
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h3 class="text-center">对以下问题进行投票</h3></div>
+                    <div class="panel-body">
+                        <ul>
+                        {% if questions %}
+                            {% for question in questions %}
+                                <li class="que"><a href="{% url 'poll:detail' question.id %}">{{forloop.counter}}. {{question}}</a></li>
+                            <br>
+                            {% endfor %}
+                        {% else %}
+                            <li>当前没有问题</li>
+                        {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% endblock %}
+        </div>
+    </div>
 </body>
 </html>
