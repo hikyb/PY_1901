@@ -1,0 +1,23 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+    <title>添加文章</title>
+{% endblock %}
+
+{% block left %}
+    <div class="row">
+        {{ af.media }}
+        <form action="{% url 'blog:addarticle' %}" method="post">
+            {% csrf_token %}
+            <div>{{ af.title.label }}</div>
+            <div>{{ af.title }}</div>
+            <br>
+            <div>{{ af.body.label }}</div>
+            <div>{{ af.body }}</div>
+            <br>
+            <div class="col-md-2 col-md-offset-3">
+                <input type="submit" value="发表" class="form-control">
+            </div>
+        </form>
+    </div>
+{% endblock %}
