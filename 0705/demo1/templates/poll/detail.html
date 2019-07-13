@@ -29,7 +29,7 @@
                     <li class="active"><a href="">列表页</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">{{username}}</a></li>
+                    <li><a href="#">{{ request.user }}</a></li>
                     <li><a href="{% url 'poll:logout' %}">退出</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->

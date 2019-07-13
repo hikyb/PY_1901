@@ -1,7 +1,14 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.http import HttpResponse
 from .models import Question, Choice, PollUser
 from django.contrib.auth import login as lgi, logout as lgo, authenticate
+from PIL import Image, ImageDraw, ImageFont
+import random, io
+from django.core.cache import cache
+from django.core.mail import EmailMultiAlternatives
+from django.conf import settings
+from itsdangerous import TimedJSONWebSignatureSerializer
+
 # Create your views here.
 
 
@@ -31,7 +38,7 @@ def index(request):
 
     # Django自带授权
     # print(request.user, request.user.is_authenticated)  # 没有用户登录，request.user默认为匿名用户
-    username = request.session.get('username')
+    # username = request.user
     questions = Question.objects.all()
     return render(request, 'poll/index.html', locals())
 
@@ -73,14 +80,37 @@ def regist(request):
     elif request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
+        recvlist = [request.POST.get('email')]
         try:
             user = PollUser.objects.create_user(username=username, password=password)
+            newuser = PollUser.objects.last()
+            # 定义序列化工具
+            serializer = TimedJSONWebSignatureSerializer(settings.SECRET_KEY)
+            serializerstr = serializer.dumps({'newuserid': newuser.id}).decode('utf-8')  # dumps将对象序列化成字符串  loads将字符串反序列化成对象
+
+            mail = EmailMultiAlternatives("Python发送HTML邮件", "<h1><a href='http://192.168.0.0.1:8000/active/%s/'>"
+                                                            "点我激活</a></h1>" %(serializerstr), settings.EMAIL_HOST_USER, recvlist)
+            mail.content_subtype = 'html'
+            mail.send()
+            newuser.is_active = False
+            newuser.save()
         except:
             return None
         if user:
             return redirect(reverse('poll:login'))
         else:
             return redirect(reverse('poll:regist'))
+
+
+def active(request, id):
+    """激活用户邮箱"""
+    # 定义序列化工具
+    serializer = TimedJSONWebSignatureSerializer(settings.SECRET_KEY)
+    serializerobj = serializer.loads(id)  # dumps将对象序列化成字符串  loads将字符串反序列化成对象
+    uid = serializerobj['newuserid']
+
+    get_object_or_404(PollUser, pk=uid).is_active = True
+    return HttpResponse("恭喜，账号激活成功！")
 
 
 def login(request):
@@ -99,12 +129,56 @@ def login(request):
 
         username = request.POST.get('username')
         password = request.POST.get('password')
+        verifycode = request.POST.get('verify')
+        if not verifycode == cache.get('verify').lower():
+            return HttpResponse('验证码错误')
         user = authenticate(request, username=username, password=password)
         if user:
             lgi(request, user)
             return redirect(reverse('poll:index'))
         else:
             return redirect(reverse('poll:login'))
+
+
+def verify(request):
+    # 定义变量，用于画面的背景色、宽、高
+    bgcolor = (random.randrange(20, 100),
+               random.randrange(20, 100),
+               random.randrange(20, 100))
+    width = 100
+    heigth = 25
+    # 创建画面对象
+    im = Image.new('RGB', (width, heigth), bgcolor)
+    # 创建画笔对象
+    draw = ImageDraw.Draw(im)
+    # 调用画笔的point()函数绘制噪点
+    for i in range(0, 100):
+        xy = (random.randrange(0, width), random.randrange(0, heigth))
+        fill = (random.randrange(0, 255), 255, random.randrange(0, 255))
+        draw.point(xy, fill=fill)
+    # 定义验证码的备选值
+    str1 = 'ABCD123EFGHIJK456LMNOPQRS789TUVWXYZ0'
+    # 随机选取4个值作为验证码
+    rand_str = ''
+    for i in range(0, 4):
+        rand_str += str1[random.randrange(0, len(str1))]
+    # 将验证码存储
+    cache.set('verify', rand_str)
+    # 构造字体对象
+    font = ImageFont.truetype('LHANDW.TTF', 21)
+    fontcolor = (255, random.randrange(0, 255), random.randrange(0, 255))
+    # 绘制4个字
+    draw.text((5, 1), rand_str[0], font=font, fill=fontcolor)
+    draw.text((25, 1), rand_str[1], font=font, fill=fontcolor)
+    draw.text((50, 1), rand_str[2], font=font, fill=fontcolor)
+    draw.text((75, 1), rand_str[3], font=font, fill=fontcolor)
+    # 释放画笔
+    del draw
+    # request.session['verifycode'] = rand_str
+    f = io.BytesIO()
+    im.save(f, 'png')
+    # 将内存中的图片数据返回给客户端，MIME类型为图片png
+    return HttpResponse(f.getvalue(), 'image/png')
 
 
 def logout(request):
