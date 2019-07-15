@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>投票详情页</title>
+</head>
+<body>
+    <h2>投票结果页</h2>
+    <p><a href="{% url 'vote:choice' question.id %}">返回投票页</a></p>
+    <h4>当前问题为：{{question}}</h4>
+    <ul>
+    {% for choice in question.choice_set.all %}
+        <li>{{choice}}------票数:{{choice.poll}}</li>
+        <br>
+    {% endfor %}
+    </ul>
+</body>
+</html>

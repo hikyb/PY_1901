@@ -9,9 +9,15 @@
     <div class="container">
         <h2>首页</h2>
         <ul>
-        {% for question in questions %}
-            <li><a href="{% url 'vote:choice' question.id %}">{{question.content}}</a></li>
-        {% endfor %}
+        {% if questions %}
+            {% for question in questions %}
+            <li><a href="{% url 'vote:choice' question.id %}">{{forloop.counter}}.{{question.content}}</a></li>
+            {% empty %}
+            <li>问题列表为空</li>
+            {% endfor %}
+        {% else %}
+            <li>没有问题可以投票</li>
+        {% endif %}
         </ul>
     </div>
 </body>
