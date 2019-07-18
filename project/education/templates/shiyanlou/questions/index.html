@@ -1323,11 +1323,9 @@
 		<h4 class="sidebox-title">最热路径</h4>
 	</div>
 	<div class="sidebox-body course-content side-list-body">
-        <a href="/paths/python"><img style="width:25px;height:25px" src="../../../static/img/1471513769430.png"> Python 研发工程师</a>
-        <a href="/paths/bigdata"><img style="width:25px;height:25px" src="../../../static/img/1471513926288.png"> 大数据工程师</a>
-        <a href="/paths/cpp"><img style="width:25px;height:25px" src="../../../static/img/1471513793360.png"> C++ 研发工程师</a>
-        <a href="/paths/security"><img style="width:25px;height:25px" src="../../../static/img/1471513867033.png"> 信息安全工程师</a>
-        <a href="/paths/linuxsys"><img style="width:25px;height:25px" src="../../../static/img/1471514004752.png"> Linux 运维工程师</a>
+        {% for course in hotpath %}
+        <a href="{% url 'shiyanlou:show' course.id %}"><img style="width:25px;height:25px" src="/media/{{ course.img }}"> {{ course.title }}</a>
+        {% endfor %}
 	</div>
     
 </div>
@@ -1505,11 +1503,7 @@
 
 
 
-	
-		
-			
-		
-	
+
 
     <div class="modal fade" id="sign-modal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-sm" role="document">
@@ -1518,15 +1512,24 @@
             <div class="modal-body">
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active">
-                        <a href="#signin-form" aria-controls="signin-form" role="tab" data-toggle="tab">登录</a>
+                        <a href="#signin-form22" aria-controls="signin-form22" role="tab" data-toggle="tab">登录</a>
                     </li>
                     <li role="presentation">
-                        <a href="#signup-form" aria-controls="signup-form" role="tab" data-toggle="tab">注册</a>
+                        <a href="#signup-form11" aria-controls="signup-form11" role="tab" data-toggle="tab">注册</a>
                     </li>
                 </ul>
                 <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="signin-form">
-                        <form action="/login" method="post">
+                    <div role="tabpanel" class="tab-pane active" id="signin-form22">
+                        <form action="{% url 'shiyanlou:login' %}" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-envelope" style="margin:0;"></i>
+                                    </div>
+                                    <input type="text" name="nickname" class="form-control" placeholder="请输入昵称">
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <div class="input-group">
                                     <div class="input-group-addon">
@@ -1571,8 +1574,17 @@
                             </div>
                         </form>
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="signup-form">
-                        <form action="/register" method="post">
+                    <div role="tabpanel" class="tab-pane" id="signup-form11">
+                        <form action="{% url 'shiyanlou:regist' %}" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-envelope" style="margin:0;"></i>
+                                    </div>
+                                    <input type="text" name="nickname" class="form-control" placeholder="请输入昵称">
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <div class="input-group">
                                     <div class="input-group-addon">

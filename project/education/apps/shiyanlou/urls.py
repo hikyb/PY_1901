@@ -16,4 +16,7 @@ urlpatterns = [
     url(r'^paths/show/(\d+)/$', views.PathShowView.as_view(), name='show'),
     url(r'^course/show/(\d+)/$', views.CourseShowView.as_view(), name='course_show'),
     url(r'^privacy/$', views.PrivacyView.as_view(), name='privacy'),
+    url(r'^login/$', views.LoginView.as_view(), name='login'),
+    url(r'^regist/$', views.RegistView.as_view(), name='regist'),
+    url(r'^logout/$', views.LogoutView.as_view(), name='logout'),
 ]

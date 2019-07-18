@@ -140,10 +140,17 @@
             </ul>
 
 
+            {% if request.user and request.user.is_authenticated %}
+                <div class="navbar-right btns">
+                    <a class="btn btn-default navbar-btn sign-in" data-sign="signin" href="#" data-toggle="modal">{{ request.user }}</a>
+                    <a class="btn btn-default navbar-btn sign-up" data-sign="signup" href="{% url 'shiyanlou:logout' %}" data-toggle="modal">退出</a>
+                </div>
+            {% else %}
             <div class="navbar-right btns">
                 <a class="btn btn-default navbar-btn sign-in" data-sign="signin" href="#sign-modal" data-toggle="modal">登录</a>
                 <a class="btn btn-default navbar-btn sign-up" data-sign="signup" href="#sign-modal" data-toggle="modal">注册</a>
             </div>
+            {% endif %}
 
 
             <form class="navbar-form navbar-right" action="search" method="get" role="search">

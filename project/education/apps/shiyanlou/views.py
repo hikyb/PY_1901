@@ -1,9 +1,46 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse
 from django.views.generic import View
 from django.http import HttpResponse
 from .models import *
+from django.core.paginator import Paginator, Page
+import time
+from django.contrib.auth import login, logout, authenticate
 
 # Create your views here.
+
+
+class RegistView(View):
+    """注册"""
+    def post(self, request):
+        nickname = request.POST.get('nickname')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        user = ShiyanlouUser.objects.create_user(username=nickname, email=email, password=password)
+
+        return redirect(reverse("shiyanlou:index"))
+
+
+class LoginView(View):
+    """登录"""
+    def post(self, request):
+        nickname = request.POST.get('nickname')
+        email = request.POST.get('login')
+        password = request.POST.get('password')
+        user = authenticate(request, username=nickname, email=email, password=password)
+
+        if user:
+            login(request, user)
+            return redirect(reverse('shiyanlou:index'))
+        else:
+            return HttpResponse("登录失败！")
+
+
+class LogoutView(View):
+    """退出登录"""
+    def get(self, request):
+        logout(request)
+        return redirect(reverse('shiyanlou:index'))
 
 
 class IndexView(View):
@@ -14,16 +51,18 @@ class IndexView(View):
         experimentcourse = ExperimentCourse.objects.all()[:4]
         return render(request, 'shiyanlou/index.html', locals())
 
-    # def post(self, request):
-    #     print("++++++++")
-
 
 class CourseView(View):
     """课程页"""
     def get(self, request):
+        pathcategory = PathCategory.objects.all().order_by('title')[:5]
+
         tags = Tags.objects.all()
         experimentcourse = ExperimentCourse.objects.all()
-        return render(request, 'shiyanlou/courses/index.html', locals())
+        pagenum = request.GET.get("page")
+        pagenum = 1 if not pagenum else pagenum
+        page = Paginator(experimentcourse, 9).get_page(pagenum)
+        return render(request, 'shiyanlou/courses/index.html', {"page": page, "pathcategory": pathcategory})
 
 
 class DeveloperView(View):
@@ -42,7 +81,8 @@ class PathsView(View):
 class DiscussionView(View):
     """讨论区"""
     def get(self, request):
-        return render(request, 'shiyanlou/questions/index.html')
+        hotpath = PathCategory.objects.all().order_by('img')[:5]
+        return render(request, 'shiyanlou/questions/index.html', {'hotpath': hotpath})
 
 
 class DiscussionDetailView(View):
@@ -76,6 +116,7 @@ class PathShowView(View):
     def get(self, request, id):
         pathcategory = PathCategory.objects.get(pk=id)
         pathcourse = PathCategory.objects.get(pk=id).pathcourse_set.all()
+        hotpath = PathCategory.objects.all().order_by('desc')[:5]
         return render(request, 'shiyanlou/paths/show.html', locals())
 
 

@@ -106,7 +106,7 @@
 
 
 
-            {% for course in experimentcourse %}
+            {% for course in page.object_list %}
             <div class="col-md-4 col-sm-6  course">
                 <a class="course-box" href="{% url 'shiyanlou:course_show' course.id %}">
                     <div class="sign-box">
@@ -134,9 +134,9 @@
                             {{ course.view }}
 
                         </span>
-                            {% if forloop.counter == 9 %}
+                            {% if forloop.counter == 7 %}
                             <span class="course-bootcamp pull-right">训练营</span>
-                            {% elif forloop.counter == 10 or forloop.counter == 11 %}
+                            {% elif forloop.counter == 8 or forloop.counter == 9 %}
                             <span class="course-money pull-right">会员</span>
                             {% endif %}
 
@@ -153,57 +153,91 @@
 
 <nav class="pagination-container">
     <ul class="pagination">
-        
-        <li class="disabled">
-            <a href="#" aria-label="Previous">
-                <span aria-hidden="true">上一页</span>
-            </a>
-        </li>
 
-        
-        <li class="active">
-            <a href="/courses/?course_type=all&amp;tag=all&amp;fee=all&amp;page=1">1</a>
-        </li>
-        
-        
-        
-        <li class="">
-            <a href="/courses/?course_type=all&amp;tag=all&amp;fee=all&amp;page=2">2</a>
-        </li>
+        {% if page.has_previous %}
+            <li class="">
+                <a href="/course/?page={{ page.previous_page_number }}" aria-label="Previous">
+                    <span aria-hidden="true">上一页</span>
+                </a>
+            </li>
+        {% else %}
+            <li class="disabled">
+                <a href="/course/?page=#" aria-label="Previous">
+                    <span aria-hidden="true">上一页</span>
+                </a>
+            </li>
+        {% endif %}
 
-        <li class="">
-            <a href="/courses/?course_type=all&amp;tag=all&amp;fee=all&amp;page=3">3</a>
-        </li>
-        
-        
-        
-        <li class="">
-            <a href="/courses/?course_type=all&amp;tag=all&amp;fee=all&amp;page=4">4</a>
-        </li>
 
-        <li class="">
-            <a href="/courses/?course_type=all&amp;tag=all&amp;fee=all&amp;page=5">5</a>
-        </li>
 
-        <li>
-            <a href='#'>...</a>
-        </li>
+        {% for i in page.paginator.page_range %}
+            {% if i == page.number %}
+                <li class="active">
+                    <a href="/course/?page={{ i }}">{{ i }}</a>
+                </li>
+            {% else %}
+                <li class="">
+                    <a href="/course/?page={{ i }}">{{ i }}</a>
+                </li>
+            {% endif %}
 
-        <li class="">
-            <a href="/courses/?course_type=all&amp;tag=all&amp;fee=all&amp;page=24">24</a>
-        </li>
+        {% endfor %}
 
-        
-        <li class="">
-            <a href="/courses/?course_type=all&amp;tag=all&amp;fee=all&amp;page=25">25</a>
-        </li>
 
-        
+
+        {% comment %}
+        <!--<li class="active">-->
+            <!--<a href="/courses/?course_type=all&amp;tag=all&amp;fee=all&amp;page=1">1</a>-->
+        <!--</li>-->
+        <!---->
+        <!---->
+        <!---->
+        <!--<li class="">-->
+            <!--<a href="/courses/?course_type=all&amp;tag=all&amp;fee=all&amp;page=2">2</a>-->
+        <!--</li>-->
+
+        <!--<li class="">-->
+            <!--<a href="/courses/?course_type=all&amp;tag=all&amp;fee=all&amp;page=3">3</a>-->
+        <!--</li>-->
+        <!---->
+        <!---->
+        <!---->
+        <!--<li class="">-->
+            <!--<a href="/courses/?course_type=all&amp;tag=all&amp;fee=all&amp;page=4">4</a>-->
+        <!--</li>-->
+
+        <!--<li class="">-->
+            <!--<a href="/courses/?course_type=all&amp;tag=all&amp;fee=all&amp;page=5">5</a>-->
+        <!--</li>-->
+
+        <!--<li>-->
+            <!--<a href='#'>...</a>-->
+        <!--</li>-->
+
+        <!--<li class="">-->
+            <!--<a href="/courses/?course_type=all&amp;tag=all&amp;fee=all&amp;page=24">24</a>-->
+        <!--</li>-->
+
+        <!---->
+        <!--<li class="">-->
+            <!--<a href="/courses/?course_type=all&amp;tag=all&amp;fee=all&amp;page=25">25</a>-->
+        <!--</li>-->
+        {% endcomment %}
+
+
+        {% if page.has_next %}
         <li class="">
-            <a aria-label="Next" href="/courses/?course_type=all&amp;tag=all&amp;fee=all&amp;page=2">
+            <a aria-label="Next" href="/course/?page={{ page.next_page_number }}">
                 <span aria-hidden="true">下一页</span>
             </a>
         </li>
+        {% else %}
+        <li class="disabled">
+            <a aria-label="Next" href="/course/?page=#">
+                <span aria-hidden="true">下一页</span>
+            </a>
+        </li>
+        {% endif %}
         
     </ul>
 </nav>
@@ -289,11 +323,9 @@
 		<h4 class="sidebox-title">最热路径</h4>
 	</div>
 	<div class="sidebox-body course-content side-list-body">
-        <a href="/paths/python"><img style="width:25px;height:25px" src="../../../static/img/1471513769430.png"> Python 研发工程师</a>
-        <a href="/paths/bigdata"><img style="width:25px;height:25px" src="../../../static/img/1471513926288.png"> 大数据工程师</a>
-        <a href="/paths/cpp"><img style="width:25px;height:25px" src="../../../static/img/1471513793360.png"> C++ 研发工程师</a>
-        <a href="/paths/security"><img style="width:25px;height:25px" src="../../../static/img/1471513867033.png"> 信息安全工程师</a>
-        <a href="/paths/linuxsys"><img style="width:25px;height:25px" src="../../../static/img/1471514004752.png"> Linux 运维工程师</a>
+        {% for course in pathcategory %}
+        <a href="{% url 'shiyanlou:show' course.id %}"><img style="width:25px;height:25px" src="/media/{{ course.img }}"> {{ course.title }}</a>
+        {% endfor %}
 	</div>
     
 </div>
@@ -355,15 +387,24 @@
             <div class="modal-body">
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active">
-                        <a href="#signin-form" aria-controls="signin-form" role="tab" data-toggle="tab">登录</a>
+                        <a href="#signin-form22" aria-controls="signin-form22" role="tab" data-toggle="tab">登录</a>
                     </li>
                     <li role="presentation">
-                        <a href="#signup-form" aria-controls="signup-form" role="tab" data-toggle="tab">注册</a>
+                        <a href="#signup-form11" aria-controls="signup-form11" role="tab" data-toggle="tab">注册</a>
                     </li>
                 </ul>
                 <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="signin-form">
-                        <form action="/login" method="post">
+                    <div role="tabpanel" class="tab-pane active" id="signin-form22">
+                        <form action="{% url 'shiyanlou:login' %}" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-envelope" style="margin:0;"></i>
+                                    </div>
+                                    <input type="text" name="nickname" class="form-control" placeholder="请输入昵称">
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <div class="input-group">
                                     <div class="input-group-addon">
@@ -408,8 +449,17 @@
                             </div>
                         </form>
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="signup-form">
-                        <form action="/register" method="post">
+                    <div role="tabpanel" class="tab-pane" id="signup-form11">
+                        <form action="{% url 'shiyanlou:regist' %}" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-envelope" style="margin:0;"></i>
+                                    </div>
+                                    <input type="text" name="nickname" class="form-control" placeholder="请输入昵称">
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <div class="input-group">
                                     <div class="input-group-addon">

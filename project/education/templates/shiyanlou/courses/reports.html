@@ -1511,15 +1511,24 @@
             <div class="modal-body">
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active">
-                        <a href="#signin-form" aria-controls="signin-form" role="tab" data-toggle="tab">登录</a>
+                        <a href="#signin-form22" aria-controls="signin-form22" role="tab" data-toggle="tab">登录</a>
                     </li>
                     <li role="presentation">
-                        <a href="#signup-form" aria-controls="signup-form" role="tab" data-toggle="tab">注册</a>
+                        <a href="#signup-form11" aria-controls="signup-form11" role="tab" data-toggle="tab">注册</a>
                     </li>
                 </ul>
                 <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="signin-form">
-                        <form action="/login" method="post">
+                    <div role="tabpanel" class="tab-pane active" id="signin-form22">
+                        <form action="{% url 'shiyanlou:login' %}" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-envelope" style="margin:0;"></i>
+                                    </div>
+                                    <input type="text" name="nickname" class="form-control" placeholder="请输入昵称">
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <div class="input-group">
                                     <div class="input-group-addon">
@@ -1564,8 +1573,17 @@
                             </div>
                         </form>
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="signup-form">
-                        <form action="/register" method="post">
+                    <div role="tabpanel" class="tab-pane" id="signup-form11">
+                        <form action="{% url 'shiyanlou:regist' %}" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-envelope" style="margin:0;"></i>
+                                    </div>
+                                    <input type="text" name="nickname" class="form-control" placeholder="请输入昵称">
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <div class="input-group">
                                     <div class="input-group-addon">
