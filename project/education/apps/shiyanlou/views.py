@@ -126,6 +126,7 @@ class CourseShowView(View):
         experimentcourse = ExperimentCourse.objects.get(pk=id)
         experimentcourse.view += 1
         experimentcourse.save()
+        experimentlist = ExperimentCourse.objects.get(pk=id).experimentlist_set.all()
         return render(request, 'shiyanlou/courses/show.html', locals())
 
 

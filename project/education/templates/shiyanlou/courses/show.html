@@ -1,7 +1,7 @@
 {% extends 'shiyanlou/base.html' %}
 
 {% block title %}
-<title> Linux 基础入门（新版） - 实验楼</title>
+<title> {{ experimentcourse.title }} - 实验楼</title>
 {% endblock %}
 	
 
@@ -125,18 +125,18 @@
                     <div class="course-progress-new"></div>
                 
                     <div class="course-progress-new"></div>
-                
+
+                    <div class="course-progress-new"></div>
+
+                    <div class="course-progress-new"></div>
+
+                    <div class="course-progress-new"></div>
+
+                    <div class="course-progress-new"></div>
+
                     <div class="course-progress-new"></div>
                 
-                    <div class="course-progress-new"></div>
-                
-                    <div class="course-progress-new"></div>
-                
-                    <div class="course-progress-new"></div>
-                
-                    <div class="course-progress-new"></div>
-                
-                <span>（0/17）</span>
+                <span>（0/{{ experimentlist.count }}）</span>
             </div>
             
 
@@ -148,7 +148,7 @@
         
         <div class="clearfix course-infobox-footer">
             
-            <div class="pull-right course-infobox-learned">85243 人学过</div>
+            <div class="pull-right course-infobox-learned">3243 人学过</div>
         </div>
         
     </div>
@@ -160,313 +160,51 @@
             </li>
             
             <li role="presentation">
-                <a href="#comments" class="stat-event" aria-controls="comments" role="tab" data-stat="course_comment" data-toggle="tab">课程评论(1194)</a>
+                <a href="#comments" class="stat-event" aria-controls="comments" role="tab" data-stat="course_comment" data-toggle="tab">课程评论(194)</a>
             </li>
             <li role="presentation">
-                <a href="#reports" class="stat-event" data-stat="course_report" aria-controls="reports" role="tab" data-toggle="tab">实验报告(3417)</a>
+                <a href="#reports" class="stat-event" data-stat="course_report" aria-controls="reports" role="tab" data-toggle="tab">实验报告(317)</a>
             </li>
             <li role="presentation">
-                <a href="#questions" class="stat-event" data-stat="course_question" aria-controls="questions" role="tab" data-toggle="tab">实验问答(1108)</a>
+                <a href="#questions" class="stat-event" data-stat="course_question" aria-controls="questions" role="tab" data-toggle="tab">实验问答(108)</a>
             </li>
         </ul>
         <div class="tab-content">
             
             <div role="tabpanel" class="tab-pane active" id="labs">
-                
 
-    
-    
-    
+
+
+
+    {% for course in experimentlist %}
     <div class="lab-item ">
     <div class="lab-item-status">
-        
-            <img src="../../../static/img/lab-not-ok.png">
-        
-    </div>
-    <div class="lab-item-index">第1节</div>
-    <div class="lab-item-title" data-toggle="tooltip" data-placement="bottom" title="Linux 系统简介">Linux 系统简介</div>
-    <div class="pull-right lab-item-ctrl">
-        
-            
-            
-                
-                <a class="btn btn-default" href="#sign-modal" data-toggle="modal" data-sign="signin" data-next="/courses/1">查看文档</a>
-                <a class="btn btn-primary" href="#sign-modal" data-toggle="modal" data-sign="signin" data-next="/courses/1">开始实验</a>
-                
-            
-        
-    </div>
-</div>
 
-    
-    
-    
-    <div class="lab-item ">
-    <div class="lab-item-status">
-        
-            <img src="../../../static/img/lab-not-ok.png">
-        
-    </div>
-    <div class="lab-item-index">第2节</div>
-    <div class="lab-item-title" data-toggle="tooltip" data-placement="bottom" title="基本概念及操作">基本概念及操作</div>
-    <div class="pull-right lab-item-ctrl">
-        
-
-        
-    </div>
-</div>
-
-
-    
-    <div class="lab-item ">
-    <div class="lab-item-status">
-        
             <img src="/static/img/lab-not-ok.png">
-        
+
     </div>
-    <div class="lab-item-index">第3节</div>
-    <div class="lab-item-title" data-toggle="tooltip" data-placement="bottom" title="用户及文件权限管理">用户及文件权限管理</div>
+    <div class="lab-item-index">第{{ forloop.counter }}节</div>
+    <div class="lab-item-title" data-toggle="tooltip" data-placement="bottom" title="Linux 系统简介">{{ course.list }}</div>
     <div class="pull-right lab-item-ctrl">
 
-        
-    </div>
-</div>
 
+            {% if request.user and request.user.is_authenticated %}
 
-    <div class="lab-item ">
-    <div class="lab-item-status">
-        
-            <img src="../../../static/img/lab-not-ok.png">
-        
-    </div>
-    <div class="lab-item-index">第4节</div>
-    <div class="lab-item-title" data-toggle="tooltip" data-placement="bottom" title="Linux 目录结构及文件基本操作">Linux 目录结构及文件基本操作</div>
-    <div class="pull-right lab-item-ctrl">
+            <a class="btn btn-default" href="#" data-toggle="modal" data-sign="signin" data-next="/courses/1">查看文档</a>
+            <a class="btn btn-primary" href="#" data-toggle="modal" data-sign="signin" data-next="/courses/1">开始实验</a>
 
-        
-    </div>
-</div>
+            {% else %}
 
+            <a class="btn btn-default" href="#sign-modal" data-toggle="modal" data-sign="signin" data-next="/courses/1">查看文档</a>
+            <a class="btn btn-primary" href="#sign-modal" data-toggle="modal" data-sign="signin" data-next="/courses/1">开始实验</a>
 
-    
-    <div class="lab-item ">
-    <div class="lab-item-status">
-        
-            <img src="../../../static/img/lab-not-ok.png">
-        
-    </div>
-    <div class="lab-item-index">第5节</div>
-    <div class="lab-item-title" data-toggle="tooltip" data-placement="bottom" title="环境变量与文件查找">环境变量与文件查找</div>
-    <div class="pull-right lab-item-ctrl">
-        
-
-        
-    </div>
-</div>
-
-    
-    
-    
-    <div class="lab-item ">
-    <div class="lab-item-status">
-        
-            <img src="../../../static/img/lab-not-ok.png">
-        
-    </div>
-    <div class="lab-item-index">第6节</div>
-    <div class="lab-item-title" data-toggle="tooltip" data-placement="bottom" title="文件打包与解压缩">文件打包与解压缩</div>
-    <div class="pull-right lab-item-ctrl">
-        
-
-        
-    </div>
-</div>
-
-    
-    
-    
-    <div class="lab-item ">
-    <div class="lab-item-status">
-        
-            <img src="../../../static/img/lab-not-ok.png">
-        
-    </div>
-    <div class="lab-item-index">第7节</div>
-    <div class="lab-item-title" data-toggle="tooltip" data-placement="bottom" title="文件系统操作与磁盘管理">文件系统操作与磁盘管理</div>
-    <div class="pull-right lab-item-ctrl">
-        
-
+            {% endif %}
 
     </div>
 </div>
 
+     {% endfor %}
 
-
-    <div class="lab-item ">
-    <div class="lab-item-status">
-        
-            <img src="../../../static/img/lab-not-ok.png">
-        
-    </div>
-    <div class="lab-item-index">第8节</div>
-    <div class="lab-item-title" data-toggle="tooltip" data-placement="bottom" title="Linux下的帮助命令">Linux下的帮助命令</div>
-    <div class="pull-right lab-item-ctrl">
-        
-
-        
-    </div>
-</div>
-
-    
-    <div class="lab-item ">
-    <div class="lab-item-status">
-        
-            <img src="../../../static/img/lab-not-ok.png">
-        
-    </div>
-    <div class="lab-item-index">第9节</div>
-    <div class="lab-item-title" data-toggle="tooltip" data-placement="bottom" title="Linux任务计划crontab">Linux任务计划crontab</div>
-    <div class="pull-right lab-item-ctrl">
-        
-
-        
-    </div>
-</div>
-
-
-    
-    <div class="lab-item ">
-    <div class="lab-item-status">
-        
-            <img src="../../../static/img/lab-not-ok.png">
-        
-    </div>
-    <div class="lab-item-index">第10节</div>
-    <div class="lab-item-title" data-toggle="tooltip" data-placement="bottom" title="命令执行顺序控制与管道">命令执行顺序控制与管道</div>
-    <div class="pull-right lab-item-ctrl">
-
-        
-    </div>
-</div>
-
-
-    
-    <div class="lab-item ">
-    <div class="lab-item-status">
-        
-            <img src="../../../static/img/lab-not-ok.png">
-        
-    </div>
-    <div class="lab-item-index">第11节</div>
-    <div class="lab-item-title" data-toggle="tooltip" data-placement="bottom" title="简单的文本处理">简单的文本处理</div>
-    <div class="pull-right lab-item-ctrl">
-        
-
-            
-        
-    </div>
-</div>
-
-    
-    
-    
-    <div class="lab-item ">
-    <div class="lab-item-status">
-        
-            <img src="../../../static/img/lab-not-ok.png">
-        
-    </div>
-    <div class="lab-item-index">第12节</div>
-    <div class="lab-item-title" data-toggle="tooltip" data-placement="bottom" title="数据流重定向">数据流重定向</div>
-    <div class="pull-right lab-item-ctrl">
-        
-
-        
-    </div>
-</div>
-
-    
-    
-    
-    <div class="lab-item ">
-    <div class="lab-item-status">
-        
-            <img src="../../../static/img/lab-not-ok.png">
-        
-    </div>
-    <div class="lab-item-index">第13节</div>
-    <div class="lab-item-title" data-toggle="tooltip" data-placement="bottom" title="正则表达式基础">正则表达式基础</div>
-    <div class="pull-right lab-item-ctrl">
-
-            
-        
-    </div>
-</div>
-
-    
-    
-    
-    <div class="lab-item ">
-    <div class="lab-item-status">
-        
-            <img src="../../../static/img/lab-not-ok.png">
-        
-    </div>
-    <div class="lab-item-index">第14节</div>
-    <div class="lab-item-title" data-toggle="tooltip" data-placement="bottom" title="Linux下软件安装">Linux下软件安装</div>
-    <div class="pull-right lab-item-ctrl">
-        
-
-        
-    </div>
-</div>
-
-    <div class="lab-item ">
-    <div class="lab-item-status">
-        
-            <img src="../../../static/img/lab-not-ok.png">
-        
-    </div>
-    <div class="lab-item-index">第15节</div>
-    <div class="lab-item-title" data-toggle="tooltip" data-placement="bottom" title="Linux 进程概念">Linux 进程概念</div>
-    <div class="pull-right lab-item-ctrl">
-        
-
-        
-    </div>
-</div>
-
-
-    <div class="lab-item ">
-    <div class="lab-item-status">
-        
-            <img src="../../../static/img/lab-not-ok.png">
-        
-    </div>
-    <div class="lab-item-index">第16节</div>
-    <div class="lab-item-title" data-toggle="tooltip" data-placement="bottom" title="Linux 进程管理">Linux 进程管理</div>
-    <div class="pull-right lab-item-ctrl">
-        
-
-        
-    </div>
-</div>
-
-
-    <div class="lab-item ">
-    <div class="lab-item-status">
-        
-            <img src="../../../static/img/lab-not-ok.png">
-        
-    </div>
-    <div class="lab-item-index">第17节</div>
-    <div class="lab-item-title" data-toggle="tooltip" data-placement="bottom" title="Linux 日志系统">Linux 日志系统</div>
-    <div class="pull-right lab-item-ctrl">
-        
-
-        
-    </div>
-</div>
 
 
             </div>
@@ -489,39 +227,39 @@
             </div>
             <div role="tabpanel" class="tab-pane" id="reports">
 				<span class="lab-id active" data-lab-id="None">全部</span>
-				
+
 				<span class="lab-id" data-lab-id="1">第1节</span>
-				
+
 				<span class="lab-id" data-lab-id="2">第2节</span>
-				
+
 				<span class="lab-id" data-lab-id="3">第3节</span>
-				
+
 				<span class="lab-id" data-lab-id="59">第4节</span>
-				
+
 				<span class="lab-id" data-lab-id="60">第5节</span>
-				
+
 				<span class="lab-id" data-lab-id="61">第6节</span>
-				
+
 				<span class="lab-id" data-lab-id="62">第7节</span>
-				
+
 				<span class="lab-id" data-lab-id="1917">第8节</span>
-				
+
 				<span class="lab-id" data-lab-id="1918">第9节</span>
-				
+
 				<span class="lab-id" data-lab-id="63">第10节</span>
-				
+
 				<span class="lab-id" data-lab-id="337">第11节</span>
-				
+
 				<span class="lab-id" data-lab-id="346">第12节</span>
-				
+
 				<span class="lab-id" data-lab-id="354">第13节</span>
-				
+
 				<span class="lab-id" data-lab-id="356">第14节</span>
-				
+
 				<span class="lab-id" data-lab-id="1943">第15节</span>
-				
+
 				<span class="lab-id" data-lab-id="1944">第16节</span>
-				
+
 				<span class="lab-id" data-lab-id="1945">第17节</span>
 				
                 <div class="report-owner">

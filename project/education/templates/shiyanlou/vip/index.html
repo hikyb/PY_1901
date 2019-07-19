@@ -56,8 +56,11 @@
                     <li class="list-group-item item-vip-footer" style="">
                         <strong  style="color:#DBDBDB;font-size:28px;display:block;">免费</strong>
                         <br>
-                        
+                            {% if request.user and request.user.is_authenticated %}
+                            <a type="button" class="btn btn-all btn-smaller disabled" href="#" data-toggle="modal" data-sign="signup">注册</a>
+                            {% else %}
                             <a type="button" class="btn btn-all btn-smaller" href="#sign-modal" data-toggle="modal" data-sign="signup">注册</a>
+                            {% endif %}
                         
                     </li>
                   </ul>
@@ -79,8 +82,15 @@
                         <del style="font-size: 12px;color: #999;">原价 599元</del>
                         <br>
                         
-                        <a type="button" class="btn btn-bigger btn-all" href="#sign-modal" data-toggle="modal" data-sign="signin" data-next="/vip">加入</a>
-                        
+                          {% if request.user and request.user.is_authenticated %}
+
+                          <a type="button" class="btn btn-bigger btn-all" href="#" data-toggle="modal" data-sign="signin" data-next="/vip">加入</a>
+
+                          {% else %}
+                           <a type="button" class="btn btn-bigger btn-all" href="#sign-modal" data-toggle="modal" data-sign="signin" data-next="/vip">加入</a>
+
+                          {% endif %}
+
                         <p style=""> 实验豆可抵扣现金</p>
                       </li>
                    </ul> 
@@ -103,9 +113,11 @@
                             <strong class="vip-price" style="font-size: 15px;display:block;margin-bottom: -7px"><span style="font-size:28px;color:#CC584C">￥599</span> / 年</strong>
                             <del style="font-size: 12px;color: #999;">原价 1024元</del>
                             <br>
-                            
+                            {% if request.user and request.user.is_authenticated %}
+                            <a type="button" class="btn btn-bigger btn-all" href="#" data-toggle="modal" data-sign="signin" data-next="/vip">加入</a>
+                            {% else %}
                             <a type="button" class="btn btn-bigger btn-all" href="#sign-modal" data-toggle="modal" data-sign="signin" data-next="/vip">加入</a>
-                            
+                            {% endif %}
                             <p  style=""> 实验豆可抵扣现金</p>
                         </li>
                     </ul>
@@ -164,7 +176,7 @@
                     </div>
                     <div class="vip-details-footer">
                         
-                        <a class="btn btn-warning" data-level="12" href="#sign-modal" data-toggle="modal" data-sign="signin" data-next="/vip">立即加入</a>
+                        <a class="btn btn-warning" data-level="12" href="#" data-toggle="modal" data-sign="signin" data-next="/vip">立即加入</a>
                         
                         <div>实验豆可抵现金</div>
                     </div>
@@ -330,8 +342,7 @@
 </div>
 
 
-	
-	
+
 
 	<div class="modal fade" id="invite-user" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog">
@@ -477,11 +488,7 @@
 </div>
 
 
-	
-		
-			
-		
-	
+
 
     <div class="modal fade" id="sign-modal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-sm" role="document">
@@ -530,7 +537,7 @@
                                         <input type="text" name="captcha_v" class="form-control" placeholder="请输入验证码">
                                     </div>
                                 </div>
-                                <img class="verify-code" src="" source="https://www.shiyanlou.com/captcha.gif">
+                                <img class="verify-code" src="" source="">
                             </div>
                             <div class="form-group remember-login">
                                 <input name="remember" type="checkbox" value="y"> 下次自动登录
@@ -585,7 +592,7 @@
                                         <input type="text" name="captcha_v" class="form-control" placeholder="请输入验证码">
                                     </div>
                                 </div>
-                                <img class="verify-code" src="" source="https://www.shiyanlou.com/captcha.gif">
+                                <img class="verify-code" src="" source="">
                             </div>
                             <div class="form-group">
                                 <input class="btn btn-primary" name="submit" type="submit" value="注册">
@@ -647,6 +654,9 @@
         Raven.config('https://bc3878b7ed0a4468a65390bd79e6e73f@sentry.shiyanlou.com/5', {
             release: '3.12.13'
         }).install();
+
+
+
     </script>
 
     
@@ -657,6 +667,6 @@
     data-member-price="299"
     data-get-member-price="/purchase/member/price"
     ></div>
-<script src="../../../static/app/dest/member/index.js?=2016121272249"></script>
-            
+<script src="/static/app/dest/member/index.js?=2016121272249"></script>
+
 {% endblock %}

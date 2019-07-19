@@ -101,13 +101,13 @@ class ExperimentCourse(models.Model):
 
 
 class ExperimentList(models.Model):
-    """实验课列表"""
+    """实验课列表类"""
     number = models.IntegerField(default=10)
     list = models.CharField(max_length=20)
     experimentcourse = models.ForeignKey(ExperimentCourse, on_delete=models.CASCADE, default=None)
 
     def __str__(self):
-        return self.number
+        return str(self.experimentcourse)
 
     class Meta:
         verbose_name_plural = "实验课程列表表"
