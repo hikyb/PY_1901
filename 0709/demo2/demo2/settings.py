@@ -147,7 +147,6 @@ HAYSTACK_CONNECTIONS = {
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
-
 # Django使用redis缓存
 CACHES = {
     "default": {
@@ -156,3 +155,4 @@ CACHES = {
         'TIMEOUT': 60,
     },
 }
+

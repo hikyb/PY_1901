@@ -5,7 +5,9 @@ app_name = 'shiyanlou'
 
 urlpatterns = [
     url(r'^$', views.IndexView.as_view(), name='index'),
-    url(r'^course/$', views.CourseView.as_view(), name='course'),
+
+    url(r'^course/(\d+)/$', views.CourseView.as_view(), name='course'),
+
     url(r'^developer/$', views.DeveloperView.as_view(), name='developer'),
     url(r'^paths/$', views.PathsView.as_view(), name='paths'),
     url(r'^discussion/$', views.DiscussionView.as_view(), name='discussion'),
@@ -19,4 +21,6 @@ urlpatterns = [
     url(r'^login/$', views.LoginView.as_view(), name='login'),
     url(r'^regist/$', views.RegistView.as_view(), name='regist'),
     url(r'^logout/$', views.LogoutView.as_view(), name='logout'),
+    url(r'^verify/$', views.verify, name='verify'),
+    # url(r'^category_course/$', views.CategoryCourse.as_view(), name='category_course')
 ]

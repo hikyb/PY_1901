@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
-    <content url="file://$MODULE_DIR$" />
-    <orderEntry type="inheritedJdk" />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/0702/test1" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/0709/demo2/apps" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/0709/demo2/extra_apps" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/project/education/apps" isTestSource="false" />
+    </content>
+    <orderEntry type="jdk" jdkName="Python 3.7 virtualenv at F:\PY1904\ENV\env1" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TestRunnerService">

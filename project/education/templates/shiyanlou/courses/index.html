@@ -32,59 +32,14 @@
         <div class="row course-cates">
             <div class="col-md-1 course-cates-title">标签：</div>
             <div class="col-md-11 course-cates-content">
-                <a class="active" href="/courses/?course_type=all&amp;fee=all">全部</a>
 
-                    <a class="" href="/courses/?course_type=all&amp;tag=Python&amp;fee=all">Python</a>
-
-                    <a class="" href="/courses/?course_type=all&amp;tag=C%2FC%2B%2B&amp;fee=all">C/C++</a>
-
-                    <a class="" href="/courses/?course_type=all&amp;tag=Linux&amp;fee=all">Linux</a>
-
-                    <a class="" href="/courses/?course_type=all&amp;tag=Web&amp;fee=all">Web</a>
-
-                    <a class="" href="/courses/?course_type=all&amp;tag=%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8&amp;fee=all">信息安全</a>
-
-                    <a class="" href="/courses/?course_type=all&amp;tag=PHP&amp;fee=all">PHP</a>
-
-                    <a class="" href="/courses/?course_type=all&amp;tag=Java&amp;fee=all">Java</a>
-
-                    <a class="" href="/courses/?course_type=all&amp;tag=NodeJS&amp;fee=all">NodeJS</a>
-
-                    <a class="" href="/courses/?course_type=all&amp;tag=Android&amp;fee=all">Android</a>
-
-                    <a class="" href="/courses/?course_type=all&amp;tag=GO&amp;fee=all">GO</a>
-
-                    <a class="" href="/courses/?course_type=all&amp;tag=Spark&amp;fee=all">Spark</a>
-
-                    <a class="" href="/courses/?course_type=all&amp;tag=%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%93%E4%B8%9A%E8%AF%BE&amp;fee=all">计算机专业课</a>
-
-                    <a class="" href="/courses/?course_type=all&amp;tag=Hadoop&amp;fee=all">Hadoop</a>
-
-                    <a class="" href="/courses/?course_type=all&amp;tag=HTML5&amp;fee=all">HTML5</a>
-
-                    <a class="" href="/courses/?course_type=all&amp;tag=Scala&amp;fee=all">Scala</a>
-
-                    <a class="" href="/courses/?course_type=all&amp;tag=Ruby&amp;fee=all">Ruby</a>
-
-                    <a class="" href="/courses/?course_type=all&amp;tag=R&amp;fee=all">R</a>
-
-                    <a class="" href="/courses/?course_type=all&amp;tag=%E7%BD%91%E7%BB%9C&amp;fee=all">网络</a>
-
-                    <a class="" href="/courses/?course_type=all&amp;tag=Git&amp;fee=all">Git</a>
-
-                    <a class="" href="/courses/?course_type=all&amp;tag=SQL&amp;fee=all">SQL</a>
-
-                    <a class="" href="/courses/?course_type=all&amp;tag=NoSQL&amp;fee=all">NoSQL</a>
-
-                    <a class="" href="/courses/?course_type=all&amp;tag=%E7%AE%97%E6%B3%95&amp;fee=all">算法</a>
-
-                    <a class="" href="/courses/?course_type=all&amp;tag=Docker&amp;fee=all">Docker</a>
-
-                    <a class="" href="/courses/?course_type=all&amp;tag=Swift&amp;fee=all">Swift</a>
-
-                    <a class="" href="/courses/?course_type=all&amp;tag=%E6%B1%87%E7%BC%96&amp;fee=all">汇编</a>
-
-                    <a class="" href="/courses/?course_type=all&amp;tag=Windows&amp;fee=all">Windows</a>
+                {% for c in category %}
+                    {% if forloop.counter == 1 %}
+                    <a class="active" href="{% url 'shiyanlou:course' 1 %}">{{ c.title }}</a>
+                    {% else %}
+                    <a href="{% url 'shiyanlou:course' c.id %}">{{ c.title }}</a>
+                    {% endif %}
+                {% endfor %}
 
             </div>
         </div>
@@ -102,7 +57,6 @@
         </div>
         <div class="search-result"></div>
         <div class="row">
-
 
 
 
@@ -156,13 +110,13 @@
 
         {% if page.has_previous %}
             <li class="">
-                <a href="/course/?page={{ page.previous_page_number }}" aria-label="Previous">
+                <a href="?page={{ page.previous_page_number }}" aria-label="Previous">
                     <span aria-hidden="true">上一页</span>
                 </a>
             </li>
         {% else %}
             <li class="disabled">
-                <a href="/course/?page=#" aria-label="Previous">
+                <a  aria-label="Previous">
                     <span aria-hidden="true">上一页</span>
                 </a>
             </li>
@@ -173,11 +127,11 @@
         {% for i in page.paginator.page_range %}
             {% if i == page.number %}
                 <li class="active">
-                    <a href="/course/?page={{ i }}">{{ i }}</a>
+                    <a href="?page={{ i }}">{{ i }}</a>
                 </li>
             {% else %}
                 <li class="">
-                    <a href="/course/?page={{ i }}">{{ i }}</a>
+                    <a href="?page={{ i }}">{{ i }}</a>
                 </li>
             {% endif %}
 
@@ -227,13 +181,13 @@
 
         {% if page.has_next %}
         <li class="">
-            <a aria-label="Next" href="/course/?page={{ page.next_page_number }}">
+            <a aria-label="Next" href="?page={{ page.next_page_number }}">
                 <span aria-hidden="true">下一页</span>
             </a>
         </li>
         {% else %}
         <li class="disabled">
-            <a aria-label="Next" href="/course/?page=#">
+            <a aria-label="Next">
                 <span aria-hidden="true">下一页</span>
             </a>
         </li>
@@ -241,6 +195,7 @@
         
     </ul>
 </nav>
+
 
     </div>
 

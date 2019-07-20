@@ -17,10 +17,10 @@
             <div class="row">
                 <div class="col-md-7">
                     <a class="container-title">
-                        <img src="../../static/img/container-title-2.png" />
+                        <img src="/static/img/container-title-2.png" />
                     </a>
                     <div style="margin-top:24px;">
-                        <a id="course-btn" class="course-btn btn btn-lg" href="{% url 'shiyanlou:course' %}">进入课程</a>
+                        <a id="course-btn" class="course-btn btn btn-lg" href="{% url 'shiyanlou:course' 1 %}">进入课程</a>
                     </div>
                 </div>
 
@@ -159,12 +159,11 @@
 		</div>
         <div class="clearfix item-footer">
             <div class="pull-right watch-all">
-                <a href="{% url 'shiyanlou:course' %}">查看更多 ></a>
+                <a href="{% url 'shiyanlou:course' 1 %}">查看更多 ></a>
             </div>
         </div>
 	</div>
 </div>
-
 
 
 	<div class="modal fade" id="invite-user" tabindex="-1" role="dialog" aria-hidden="true">
@@ -255,7 +254,7 @@
                                         <input type="text" name="captcha_v" class="form-control" placeholder="请输入验证码">
                                     </div>
                                 </div>
-                                <img class="verify-code" src="" source="https://www.shiyanlou.com/captcha.gif">
+                                <img class="verify-code" id="verifyimg" src="{% url 'shiyanlou:verify' %}" source="{% url 'shiyanlou:verify' %}">
                             </div>
                             <div class="form-group remember-login">
                                 <input name="remember" type="checkbox" value="y"> 下次自动登录
@@ -313,7 +312,7 @@
                                         <input type="text" name="captcha_v" class="form-control" placeholder="请输入验证码">
                                     </div>
                                 </div>
-                                <img class="verify-code" src="" source="https://www.shiyanlou.com/captcha.gif">
+                                <img class="verify-code" src="/static/img/banner-vip.png">
                             </div>
                             <div class="form-group">
                                 <input class="btn btn-primary" name="submit" type="submit" value="注册">
@@ -384,6 +383,17 @@
 ></div>
 
 <script src="/static/app/dest/frontend/index.js?=2016121272249"></script>
+
+
+<script>
+
+    $(function(){
+        $("#verifyimg").click(function(){
+            $(this).attr("source", "/verify/?t=" + new Date().getTime())
+        })
+    })
+
+</script>
 
 
 {% endblock %}

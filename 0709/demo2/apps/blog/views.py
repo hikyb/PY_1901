@@ -52,7 +52,6 @@ class AddArticle(View):
 
     def post(self, requst):
         af = ArticleForm(requst.POST)
-        print(af.is_valid())
         if af.is_valid():
             article = af.save(commit=False)
             article.category = Catrgory.objects.first()
